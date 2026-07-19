@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photobooth</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <span class="brand">📸 photobooth</span>
+  </header>
+
+  <main>
+    <!-- ================= LANDING ================= -->
+    <section id="landing" class="screen is-active">
+      <div class="landing-inner">
+        <p class="eyebrow">est. 2026</p>
+        <h1 class="title">Capture the moment,<br />relive the magic</h1>
+        <p class="subtitle">Ambil foto lewat webcam, gabung jadi strip, langsung download. Gratis, tanpa upload.</p>
+        <button class="btn btn-primary btn-lg" data-action="go-layout">START</button>
+      </div>
+    </section>
+
+    <!-- ================= CHOOSE LAYOUT ================= -->
+    <section id="choose-layout" class="screen">
+      <h2 class="screen-title">choose your layout</h2>
+      <p class="screen-sub">Pilih jumlah pose untuk strip foto kamu</p>
+      <div class="layout-grid">
+        <button class="layout-card" data-layout="A" data-poses="3">
+          <span class="layout-preview layout-preview--3">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="layout-name">Layout A</span>
+          <span class="layout-meta">6 × 2 Strip · 3 Pose</span>
+        </button>
+        <button class="layout-card" data-layout="B" data-poses="4">
+          <span class="layout-preview layout-preview--4">
+            <span></span><span></span><span></span><span></span>
+          </span>
+          <span class="layout-name">Layout B</span>
+          <span class="layout-meta">6 × 2 Strip · 4 Pose</span>
+        </button>
+      </div>
+      <button class="btn btn-ghost" data-action="back-landing">← kembali</button>
+    </section>
+
+    <!-- ================= CAMERA ================= -->
+    <section id="camera" class="screen">
+      <div class="camera-stage">
+        <div class="pose-counter" id="pose-counter">0/4</div>
+
+        <div class="video-wrap">
+          <video id="video" autoplay playsinline muted></video>
+          <div class="countdown-overlay" id="countdown-overlay" hidden>
+            <span id="countdown-number">3</span>
+          </div>
+          <!-- flash effect -->
+          <div class="flash" id="flash"></div>
+        </div>
+
+        <!-- error panel (izin kamera dsb) -->
+        <div class="camera-error" id="camera-error" hidden>
+          <p id="camera-error-msg">Camera unavailable.</p>
+          <button class="btn btn-primary" id="retry-camera" data-action="retry-camera">Retry Camera</button>
+        </div>
+
+        <!-- filmstrip thumbnails hasil sementara -->
+        <div class="shots-preview" id="shots-preview"></div>
+      </div>
+
+      <div class="camera-controls">
+        <div class="control-group">
+          <span class="control-label">Timer</span>
+          <div class="segmented" id="timer-group">
+            <button class="seg" data-timer="3">3s</button>
+            <button class="seg is-selected" data-timer="5">5s</button>
+            <button class="seg" data-timer="10">10s</button>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Mirror</span>
+          <button class="toggle" id="mirror-toggle" aria-pressed="true">On</button>
+        </div>
+
+        <button class="btn btn-primary btn-lg" id="start-capture" data-action="start-capture">START</button>
+        <button class="btn btn-ghost" data-action="back-layout">← ganti layout</button>
+      </div>
+    </section>
+
+    <!-- ================= PREVIEW ================= -->
+    <section id="preview" class="screen">
+      <h2 class="screen-title">strip kamu</h2>
+      <div class="preview-stage">
+        <canvas id="strip-canvas"></canvas>
+      </div>
+
+      <div class="preview-controls">
+        <div class="control-group">
+          <span class="control-label">Warna frame</span>
+          <div class="color-swatches" id="color-swatches">
+            <button class="swatch is-selected" data-color="#ffffff" style="--sw:#ffffff" aria-label="Putih"></button>
+            <button class="swatch" data-color="#111111" style="--sw:#111111" aria-label="Hitam"></button>
+            <button class="swatch" data-color="#f7c6d9" style="--sw:#f7c6d9" aria-label="Pink pastel"></button>
+            <button class="swatch" data-color="#c9e4de" style="--sw:#c9e4de" aria-label="Mint"></button>
+            <button class="swatch" data-color="#f6e2b3" style="--sw:#f6e2b3" aria-label="Cream"></button>
+          </div>
+        </div>
+
+        <div class="preview-actions">
+          <button class="btn btn-primary btn-lg" id="download-btn" data-action="download">⬇ Download</button>
+          <button class="btn btn-ghost" data-action="retake">↺ Retake</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

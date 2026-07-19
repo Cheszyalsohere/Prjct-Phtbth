@@ -1,13 +1,13 @@
 :root {
-  --bg: #f4efe9;
-  --panel: #fffdf9;
-  --ink: #2a2622;
-  --muted: #8a827a;
-  --accent: #e5687f;
-  --accent-ink: #fff;
-  --line: #e6ded4;
+  --bg: #f2f2f2;
+  --panel: #ffffff;
+  --ink: #111111;
+  --muted: #8a8a8a;
+  --accent: #111111;
+  --accent-ink: #ffffff;
+  --line: #dcdcdc;
   --radius: 16px;
-  --shadow: 0 10px 30px rgba(60, 45, 40, 0.10);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -124,7 +124,7 @@ main {
   gap: 5px;
   margin-bottom: 8px;
 }
-.layout-preview span { display: block; height: 26px; background: #d9cfc4; border-radius: 2px; }
+.layout-preview span { display: block; height: 26px; background: #cfcfcf; border-radius: 2px; }
 .layout-name { font-weight: 700; text-transform: capitalize; }
 .layout-meta { font-size: .8rem; color: var(--muted); }
 

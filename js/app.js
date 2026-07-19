@@ -17,6 +17,8 @@ const stripCanvas = document.getElementById('strip-canvas');
 const startCaptureBtn = document.getElementById('start-capture');
 const downloadBtn = document.getElementById('download-btn');
 const mirrorToggle = document.getElementById('mirror-toggle');
+const flashToggle = document.getElementById('flash-toggle');
+const uploadInput = document.getElementById('upload-input');
 
 function show(name) {
   Object.values(screens).forEach((s) => s.classList.remove('is-active'));
@@ -51,6 +53,9 @@ document.body.addEventListener('click', (e) => {
     case 'retake':
       retake();
       break;
+    case 'upload':
+      uploadInput.click();
+      break;
   }
 });
 
@@ -58,6 +63,7 @@ document.body.addEventListener('click', (e) => {
 document.querySelectorAll('.layout-card').forEach((card) => {
   card.addEventListener('click', async () => {
     setLayout(card.dataset.layout, Number(card.dataset.poses));
+    document.getElementById('pose-counter').textContent = `0/${state.poseCount}`;
     show('camera');
     applyMirror();
     await startCamera();
@@ -84,6 +90,42 @@ mirrorToggle.addEventListener('click', () => {
 
 function applyMirror() {
   video.classList.toggle('mirrored', state.mirrorEnabled);
+}
+
+// ---------- flash toggle ----------
+flashToggle.addEventListener('click', () => {
+  state.flashEnabled = !state.flashEnabled;
+  flashToggle.setAttribute('aria-pressed', String(state.flashEnabled));
+  flashToggle.textContent = state.flashEnabled ? 'On' : 'Off';
+});
+
+// ---------- upload image ----------
+uploadInput.addEventListener('change', async () => {
+  const files = Array.from(uploadInput.files).slice(0, state.poseCount);
+  uploadInput.value = ''; // reset supaya file sama bisa dipilih ulang
+  if (files.length === 0) return;
+
+  const canvases = await Promise.all(files.map(fileToCanvas));
+  state.photos = canvases;
+  composeStrip(stripCanvas);
+  downloadBtn.disabled = false;
+  show('preview');
+});
+
+function fileToCanvas(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
+      canvas.getContext('2d').drawImage(img, 0, 0);
+      URL.revokeObjectURL(img.src);
+      resolve(canvas);
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
 }
 
 // ---------- capture ----------

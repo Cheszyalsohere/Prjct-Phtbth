@@ -64,6 +64,7 @@ function grabFrame() {
 }
 
 function fireFlash() {
+  if (!state.flashEnabled) return;
   flash.classList.remove('fire');
   void flash.offsetWidth;
   flash.classList.add('fire');

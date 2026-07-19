@@ -4,6 +4,7 @@ export const state = {
   poseCount: 4,
   timerSeconds: 5,
   mirrorEnabled: true,
+  flashEnabled: true,
   frameColor: '#ffffff',
   photos: [],         // array of HTMLCanvasElement, satu per pose
 };

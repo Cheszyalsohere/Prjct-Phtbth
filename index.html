@@ -84,8 +84,18 @@
           <button class="toggle" id="mirror-toggle" aria-pressed="true">On</button>
         </div>
 
+        <div class="control-group">
+          <span class="control-label">Flash</span>
+          <button class="toggle" id="flash-toggle" aria-pressed="true">On</button>
+        </div>
+
         <button class="btn btn-primary btn-lg" id="start-capture" data-action="start-capture">START</button>
-        <button class="btn btn-ghost" data-action="back-layout">← ganti layout</button>
+
+        <div class="camera-secondary">
+          <button class="btn btn-ghost" data-action="upload">⬆ Upload Image</button>
+          <button class="btn btn-ghost" data-action="back-layout">← ganti layout</button>
+        </div>
+        <input type="file" id="upload-input" accept="image/*" multiple hidden />
       </div>
     </section>
 

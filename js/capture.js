@@ -2,6 +2,7 @@
 
 import { state } from './state.js';
 import { getVideo, isReady } from './camera.js';
+import { playTick, playShutter } from './sound.js';
 
 const overlay = document.getElementById('countdown-overlay');
 const numberEl = document.getElementById('countdown-number');
@@ -25,6 +26,7 @@ export async function runSession(onProgress) {
     await countdown(state.timerSeconds);
     const canvas = grabFrame();
     state.photos.push(canvas);
+    playShutter();
     fireFlash();
     addThumb(canvas);
     updateCounter(state.photos.length);
@@ -37,6 +39,7 @@ async function countdown(seconds) {
   overlay.hidden = false;
   for (let n = seconds; n > 0; n--) {
     numberEl.textContent = n;
+    playTick(n === 1); // detik terakhir nada lebih tinggi
     // retrigger animasi pop
     numberEl.style.animation = 'none';
     void numberEl.offsetWidth;

@@ -37,8 +37,18 @@ main {
 
 /* ---------- screens ---------- */
 .screen { display: none; width: 100%; max-width: 720px; }
-.screen.is-active { display: block; animation: fade .35s ease; }
-@keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.screen.is-active { display: block; animation: screen-in .45s cubic-bezier(.22, .61, .36, 1); }
+@keyframes screen-in {
+  from { opacity: 0; transform: translateY(18px) scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* hormati preferensi kurangi gerak */
+@media (prefers-reduced-motion: reduce) {
+  .screen.is-active,
+  #countdown-number,
+  .flash.fire { animation: none !important; }
+}
 
 .screen-title {
   font-size: 1.9rem;
